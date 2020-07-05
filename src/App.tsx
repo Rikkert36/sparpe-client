@@ -1,26 +1,59 @@
 import React from 'react';
-import logo from './logo.svg';
+import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Routes } from './routing/Routes';
+
 import './App.css';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#000000', // blue[900],
+    },
+    secondary: {
+      main: '#f44336',
+    },
+  },
+  overrides: {
+    MuiCheckbox: {
+      colorSecondary: {
+        '&$checked': {
+          color: '#356ef1',
+        },
+      },
+    },
+  },
+});
+const styles = (theme2: any) => ({
+  '@global': {
+    body: {
+      backgroundImage: "url('./static/background.jpg')",
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center center',
+      backgroundSize: 'cover',
+      backgroundAttachment: 'fixed',
+      height: '100%',
+    },
+    html: {
+      height: '100%',
+    },
+    '#componentWithId': {
+      height: '100%',
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div>
+        <Router>
+          <Routes />
+        </Router>
+      </div>
+    </ThemeProvider>
   );
 }
 
-export default App;
+export default withStyles(styles)(App);
